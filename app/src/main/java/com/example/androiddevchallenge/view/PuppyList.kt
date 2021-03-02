@@ -29,8 +29,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -58,7 +56,7 @@ fun PuppyListItem(
                 contentDescription = puppy.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(80.dp),
+                    .size(120.dp),
                 error = { err ->
                     Log.e("MainActivity", "Image loading failed $err")
                 }

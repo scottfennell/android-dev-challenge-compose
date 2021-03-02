@@ -16,7 +16,9 @@
 package com.example.androiddevchallenge.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -27,17 +29,20 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bolt
+import androidx.compose.material.icons.filled.Chair
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.domain.Puppy
@@ -48,12 +53,12 @@ import com.example.androiddevchallenge.ui.theme.Orange300
 
 @Composable
 fun PuppyRating(puppy: Puppy, modifier: Modifier = Modifier) {
-    Row(modifier = modifier) {
-        RatingPill(filledIcon = Icons.Filled.Favorite, value = puppy.energy, label = "Energy", color = Orange300)
+    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceEvenly) {
+        RatingPill(filledIcon = Icons.Filled.Bolt, value = puppy.energy, label = "Energy", color = Orange300)
         Spacer(modifier = Modifier.width(4.dp))
-        RatingPill(filledIcon = Icons.Filled.Warning, value = puppy.volume, label = "Volume", color = Green300)
+        RatingPill(filledIcon = Icons.Filled.VolumeUp, value = puppy.volume, label = "Volume", color = Green300)
         Spacer(modifier = Modifier.width(4.dp))
-        RatingPill(filledIcon = Icons.Filled.Person, value = puppy.shedding, label = "Shedding", color = Blue300)
+        RatingPill(filledIcon = Icons.Filled.Chair, value = puppy.shedding, label = "Shedding", color = Blue300)
     }
 }
 
@@ -65,23 +70,30 @@ fun RatingPill(filledIcon: ImageVector, value: Int, label: String, color: Color,
             .clip(shape = RoundedCornerShape(8.dp))
             .background(color)
     ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.overline,
-            textAlign = TextAlign.Justify,
-            modifier = Modifier.padding(top = (0).dp, start = 5.dp)
-        )
-        Row(modifier = Modifier.padding(top = 6.dp)) {
-            for (i in 1..max) {
-                if (i < value) {
-                    Icon(imageVector = filledIcon, contentDescription = "$i", modifier = Modifier.size(15.dp).alpha(0.7f))
-                } else {
-                    Icon(
-                        imageVector = filledIcon, contentDescription = "$i",
-                        modifier = Modifier
-                            .size(15.dp)
-                            .alpha(0.1f)
-                    )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(horizontal = 2.dp, vertical = 3.dp)
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.overline,
+            )
+            Row {
+                for (i in 1..max) {
+                    if (i < value) {
+                        Icon(
+                            imageVector = filledIcon,
+                            contentDescription = "$i",
+                            modifier = Modifier.size(15.dp).alpha(0.8f)
+                        )
+                    } else {
+                        Icon(
+                            imageVector = filledIcon, contentDescription = "$i",
+                            modifier = Modifier
+                                .size(15.dp)
+                                .alpha(0.2f)
+                        )
+                    }
                 }
             }
         }
@@ -92,6 +104,6 @@ fun RatingPill(filledIcon: ImageVector, value: Int, label: String, color: Color,
 @Composable
 fun PreviewRatingPill() {
     MyTheme {
-        RatingPill(filledIcon = Icons.Default.Face, value = 3, max = 5, label = "Shedding", color = Orange300)
+        RatingPill(filledIcon = Icons.Default.Chair, value = 3, max = 5, label = "Shedding", color = Orange300)
     }
 }
