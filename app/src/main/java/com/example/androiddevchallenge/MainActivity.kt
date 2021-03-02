@@ -16,15 +16,27 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.domain.PUPPIES
+import com.example.androiddevchallenge.domain.Puppy
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.view.DetailPuppy
+import com.example.androiddevchallenge.view.PuppyListItem
 
+@ExperimentalAnimationApi
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +49,60 @@ class MainActivity : AppCompatActivity() {
 }
 
 // Start building your app here!
+@ExperimentalAnimationApi
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    // We save the scrolling position with this state
+    var detailPuppy = remember<Puppy?> { null }
+    val scrollState = rememberLazyListState()
+    AnimatedVisibility(
+        visible = detailPuppy != null,
+        enter = slideInVertically(
+            initialOffsetY = { fullHeight ->
+                fullHeight * 2
+            }
+        ),
+        exit = slideOutVertically(
+            targetOffsetY = { fullHeight ->
+                fullHeight * 2
+            }
+        )
+    ) {
+        DetailPuppy(
+            detailPuppy,
+            modifier = Modifier.clickable {
+                detailPuppy = null
+            }
+        )
+    }
+    AnimatedVisibility(
+        visible = detailPuppy == null,
+        enter = slideInVertically(
+            initialOffsetY = { fullHeight ->
+                -fullHeight
+            }
+        ),
+        exit = slideOutVertically(
+            targetOffsetY = { fullHeight ->
+                -fullHeight
+            }
+        )
+    ) {
+        LazyColumn(state = scrollState) {
+            items(PUPPIES.size) {
+                PuppyListItem(
+                    PUPPIES[it],
+                    modifier = Modifier.clickable {
+                        Log.d("MainActivity", "Clicked event $it")
+                        detailPuppy = PUPPIES[it]
+                    }
+                )
+            }
+        }
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
@@ -52,6 +111,7 @@ fun LightPreview() {
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
