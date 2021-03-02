@@ -15,7 +15,7 @@ Find a dog that will work best for you
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="/results/Screenshot_20210301-212726.png" width="260">&emsp;<img src="/results/Screenshot_20210401-212749.png" width="260">
+<img src="/results/Screenshot_20210301-212726.png" width="260">&emsp;<img src="/results/Screenshot_20210301-212749.png" width="260">
 
 ## License
 ```
