@@ -1,7 +1,5 @@
 # Puppy Pals
 
-<!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
-<!--- You can find both of these in the url bar when you open your repository in github. -->
 ![Workflow result](https://github.com/scottfennell/android-dev-challenge-compose/workflows/Check/badge.svg)
 
 
@@ -10,14 +8,14 @@ Find a dog that will work best for you
 
 
 ## :bulb: Motivation and Context
-* The transision animation detail to list is quite simple and is achieved with an AnimateVisibility layout
+* The transition animation detail to list is quite simple and is achieved with an AnimateVisibility layout
 * The breed detail pills are quite simple with Compose
 * The actual amount of code required is quite small
 
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="/results/Screenshot_20210401-212726.png" width="260">&emsp;<img src="/results/Screenshot_20210401-212749.png" width="260">
+<img src="/results/Screenshot_20210301-212726.png" width="260">&emsp;<img src="/results/Screenshot_20210401-212749.png" width="260">
 
 ## License
 ```
